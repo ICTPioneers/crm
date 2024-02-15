@@ -1,0 +1,30 @@
+
+
+services:
+  app-db:
+    image: "mysql:5.7-debian"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=my-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=123456
+    ports:
+      - "3306:3306"
+    networks:
+      - my-net
+    #: fix issue from https://github.com/docker-library/mysql/issues/873
+    ulimits:
+      nofile: # Fix memory leak issue on some systems when LimitCORE=infinity (containerd)
+        soft: 1048576
+        hard: 1048576
+
+  app:
+    build: .
+    ports:
+      - "8000:80"
+    networks:
+      - my-net
+
+networks:
+  my-net:
+    
