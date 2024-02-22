@@ -4,10 +4,10 @@ services:
   app-db:
     image: "mysql:5.7-debian"
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=my-db
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
     ports:
       - "3306:3306"
     networks:
@@ -17,7 +17,7 @@ services:
       nofile: # Fix memory leak issue on some systems when LimitCORE=infinity (containerd)
         soft: 1048576
         hard: 1048576
-
+  
   app:
     build: .
     ports:
